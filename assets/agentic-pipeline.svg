@@ -1,0 +1,93 @@
+<svg width="1000" height="220" viewBox="0 0 1000 220" xmlns="http://www.w3.org/2000/svg">
+<defs>
+  <style>
+    .node-box { fill:#0f172a; stroke:#3b82f6; stroke-width:1.5; rx:10; }
+    .node-text { font-family:'Segoe UI',Helvetica,Arial,sans-serif; font-size:13px; fill:#e4eaf6; }
+    .arrow-line { stroke:#243049; stroke-width:2; }
+    .arrowhead { fill:#243049; }
+    .pulse { fill:#3b82f6; filter:url(#glow); }
+    .label-text { font-family:'JetBrains Mono',monospace; font-size:10px; fill:#64748b; }
+    .retry-text { font-family:'JetBrains Mono',monospace; font-size:10px; fill:#f59e0b; }
+  </style>
+  <filter id="glow" x="-100%" y="-100%" width="300%" height="300%">
+    <feGaussianBlur stdDeviation="4" result="blur"/>
+    <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+  </filter>
+  <marker id="arrow" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto">
+    <path d="M0,0 L8,4 L0,8 Z" class="arrowhead"/>
+  </marker>
+</defs>
+
+<rect width="1000" height="220" fill="#070910"/>
+
+<!-- nodes -->
+<g>
+  <!-- Clarifier -->
+  <rect x="10" y="90" width="110" height="40" class="node-box"/>
+  <text x="65" y="114" text-anchor="middle" class="node-text">📝 Clarifier</text>
+
+  <!-- BA -->
+  <rect x="150" y="90" width="100" height="40" class="node-box"/>
+  <text x="200" y="114" text-anchor="middle" class="node-text">📋 BA</text>
+
+  <!-- Scrum -->
+  <rect x="280" y="90" width="120" height="40" class="node-box"/>
+  <text x="340" y="114" text-anchor="middle" class="node-text">🗂 Scrum Master</text>
+
+  <!-- Developer -->
+  <rect x="430" y="90" width="120" height="40" class="node-box" stroke="#3b82f6"/>
+  <text x="490" y="114" text-anchor="middle" class="node-text">💻 Developer</text>
+
+  <!-- QA -->
+  <rect x="580" y="90" width="100" height="40" class="node-box" stroke="#f59e0b"/>
+  <text x="630" y="114" text-anchor="middle" class="node-text">🧪 QA</text>
+
+  <!-- Git -->
+  <rect x="710" y="90" width="90" height="40" class="node-box"/>
+  <text x="755" y="114" text-anchor="middle" class="node-text">🔀 Git</text>
+
+  <!-- GitHub -->
+  <rect x="830" y="90" width="100" height="40" class="node-box"/>
+  <text x="880" y="114" text-anchor="middle" class="node-text">☁️ GitHub</text>
+
+  <!-- DevOps -->
+  <rect x="430" y="160" width="120" height="40" class="node-box" stroke="#10b981"/>
+  <text x="490" y="184" text-anchor="middle" class="node-text">🐳 DevOps</text>
+</g>
+
+<!-- arrows -->
+<line x1="120" y1="110" x2="148" y2="110" class="arrow-line" marker-end="url(#arrow)"/>
+<line x1="250" y1="110" x2="278" y2="110" class="arrow-line" marker-end="url(#arrow)"/>
+<line x1="400" y1="110" x2="428" y2="110" class="arrow-line" marker-end="url(#arrow)"/>
+<line x1="550" y1="110" x2="578" y2="110" class="arrow-line" marker-end="url(#arrow)"/>
+<line x1="680" y1="110" x2="708" y2="110" class="arrow-line" marker-end="url(#arrow)"/>
+<line x1="800" y1="110" x2="828" y2="110" class="arrow-line" marker-end="url(#arrow)"/>
+
+<!-- QA -> DevOps (pass) -->
+<path d="M 630,130 L 630,180 L 552,180" fill="none" class="arrow-line" marker-end="url(#arrow)"/>
+<text x="640" y="155" class="label-text">✅ pass</text>
+
+<!-- QA -> Developer (fail retry loop) -->
+<path d="M 580,100 C 540,70 500,70 492,88" fill="none" class="arrow-line" marker-end="url(#arrow)"/>
+<text x="500" y="62" class="retry-text">❌ fail → retry ≤3</text>
+
+<!-- moving pulses along main chain -->
+<circle r="5" class="pulse">
+  <animateMotion dur="4s" repeatCount="indefinite"
+    path="M15,110 L120,110 L148,110 L250,110 L278,110 L400,110 L428,110 L490,108"/>
+</circle>
+<circle r="5" class="pulse" opacity="0.7">
+  <animateMotion dur="4s" begin="1.3s" repeatCount="indefinite"
+    path="M15,110 L120,110 L148,110 L250,110 L278,110 L400,110 L428,110 L490,108"/>
+</circle>
+<circle r="4" class="pulse" fill="#10b981">
+  <animateMotion dur="3s" begin="2s" repeatCount="indefinite"
+    path="M630,130 L630,180 L552,180"/>
+</circle>
+<circle r="4" class="pulse" fill="#f59e0b">
+  <animateMotion dur="2.4s" repeatCount="indefinite"
+    path="M580,100 C 540,70 500,70 492,88"/>
+</circle>
+
+<text x="500" y="210" text-anchor="middle" class="label-text">Plain-English spec → tested, GitHub-pushed, Docker-ready codebase</text>
+</svg>
